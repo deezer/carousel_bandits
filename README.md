@@ -80,11 +80,13 @@ python main.py --policies random,ts-seg-pessimistic --print_every 5 --output_pat
 python plot_results.py --data_path general_experiment_results.json
 ```
 
-#### Evaluation of all policies on the complete `user_features.csv` (takes some time!)
+#### Evaluation of all policies on the complete `user_features.csv` (takes some time)
+
 ```Bash
 python main.py --policies random,etc-seg-explore,etc-seg-exploit,epsilon-greedy-explore,epsilon-greedy-exploit,kl-ucb-seg,ts-seg-naive,ts-seg-pessimistic,ts-lin-naive,ts-lin-pessimistic --print_every 1 --output_path general_experiment_results.json
 python plot_results.py --data_path general_experiment_results.json
 ```
+_On running times: the `ts-lin-naive` and `ts-lin-pessimistic` policies might take a few minutes per round on a regular laptop. To speed up computations, you might consider removing them for the list of evaluated policies._
 
 Results should look like:
 
