@@ -74,7 +74,7 @@ python main.py --users_path data/user_features_small.csv --policies random,etc-s
 python plot_results.py --data_path general_experiment_results.json
 ```
 
-#### Evaluation of random and ts-seg-pessimistic policies on the complete `user_features.csv`
+#### Evaluation of two different policies (random, ts-seg-pessimistic) on the complete `user_features.csv`
 ```Bash
 python main.py --policies random,ts-seg-pessimistic --print_every 5 --output_path general_experiment_results.json
 python plot_results.py --data_path general_experiment_results.json
