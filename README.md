@@ -1,7 +1,5 @@
 # Carousel Personalization in Music Streaming Apps with Contextual Bandits - RecSys 2020
 
-**[WORK IN PROGRESS]**
-
 This repository provides Python code and data to reproduce experiments from the article [Carousel Personalization in Music Streaming Apps with Contextual Bandits](https://arxiv.org/abs/2009.06546.pdf) published in the proceedings of the 14th ACM Conference on Recommender Systems ([RecSys 2020](https://recsys.acm.org/recsys20/) - _Best Short Paper Candidate_).
 
 ## Carousel Personalization
@@ -72,7 +70,7 @@ Offline evaluation of Top-12 playlist recommendation: expected cumulative regret
 
 #### Evaluation of all policies on `user_features_small.csv` (useful for quick testing)
 ```Bash
-python main.py --users_path data/user_features_small.csv --policies random,etc-seg-explore,etc-seg-exploit,epsilon-greedy-explore,epsilon-greedy-exploit,kl-ucb-seg,ts-seg-naive,ts-seg-pessimistic,ts-lin --n_users_per_round 9 --output_path general_experiment_results.json
+python main.py --users_path data/user_features_small.csv --policies random,etc-seg-explore,etc-seg-exploit,epsilon-greedy-explore,epsilon-greedy-exploit,kl-ucb-seg,ts-seg-naive,ts-seg-pessimistic,ts-lin-naive,ts-lin-pessimistic --n_users_per_round 9 --output_path general_experiment_results.json
 python plot_results.py --data_path general_experiment_results.json
 ```
 
@@ -84,18 +82,35 @@ python plot_results.py --data_path general_experiment_results.json
 
 #### Evaluation of all policies on the complete `user_features.csv` (takes some time!)
 ```Bash
-python main.py --policies random,etc-seg-explore,etc-seg-exploit,epsilon-greedy-explore,epsilon-greedy-exploit,kl-ucb-seg,ts-seg-naive,ts-seg-pessimistic,ts-lin --print_every 1 --output_path general_experiment_results.json
+python main.py --policies random,etc-seg-explore,etc-seg-exploit,epsilon-greedy-explore,epsilon-greedy-exploit,kl-ucb-seg,ts-seg-naive,ts-seg-pessimistic,ts-lin-naive,ts-lin-pessimistic --print_every 1 --output_path general_experiment_results.json
 python plot_results.py --data_path general_experiment_results.json
 ```
+
+Results should look like:
+
+<p align="center">
+  <img height="350" src="images/general_exp.png">
+</p>
+
+_Important note on `ts-lin` policies: our implementation of naive and pessimistic linear Thompson Sampling strategies have been improved since the publication of the RecSys paper. As a consequence, regret curves from these two policies are a bit different than in Figure 2 of the paper (results are better). Nonetheless, all conclusions from the article remain valid, especially regarding the comparison with ts-seg-pessimistic, and the comparison among ts-lin-naive and ts-lin-pessimistic._
 
 ### Cascade vs No-Cascade Experiments (Figure 3 of RecSys paper)
 
 Comparison of cascade vs no-cascade policies for epsilon-greedy and ts-seg-pessimistic policies, over 100 simulated rounds.
 
+We provide comments on our implementation of a **cascade-based behaviour** for these experiments in `policies.py`.
+
 ```Bash
 python main.py --policies epsilon-greedy-explore,epsilon-greedy-explore-no-cascade,ts-seg-pessimistic,ts-seg-pessimistic-no-cascade --print_every 5 --output_path cascade_experiment_results.json
 python plot_results.py --data_path cascade_experiment_results.json
 ```
+
+Results should look like:
+
+<p align="center">
+  <img height="350" src="images/cascade_exp.png">
+</p>
+
 
 ### Complete list of `main.py` parameters
 
